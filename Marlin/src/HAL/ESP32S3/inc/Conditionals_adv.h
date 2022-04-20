@@ -20,16 +20,3 @@
  *
  */
 #pragma once
-
-#ifndef SD_SS_PIN
-#define SD_SS_PIN   SDSS
-#endif
-#ifndef SD_SCK_PIN
-#define SD_SCK_PIN  18
-#endif
-#ifndef SD_MISO_PIN
-#define SD_MISO_PIN 19
-#endif
-#ifndef SD_MOSI_PIN
-#define SD_MOSI_PIN 23
-#endif

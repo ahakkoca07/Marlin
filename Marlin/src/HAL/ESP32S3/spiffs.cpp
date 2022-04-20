@@ -19,17 +19,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#pragma once
+#ifdef ARDUINO_ARCH_ESP32
 
-#ifndef SD_SS_PIN
-#define SD_SS_PIN   SDSS
-#endif
-#ifndef SD_SCK_PIN
-#define SD_SCK_PIN  18
-#endif
-#ifndef SD_MISO_PIN
-#define SD_MISO_PIN 19
-#endif
-#ifndef SD_MOSI_PIN
-#define SD_MOSI_PIN 23
-#endif
+#include "../../inc/MarlinConfigPre.h"
+
+#if BOTH(WIFISUPPORT, WEBSUPPORT)
+
+#include "../../core/serial.h"
+
+#include <FS.h>
+#include <SPIFFS.h>
+
+bool spiffs_initialized;
+
+void spiffs_init() {
+  if (SPIFFS.begin(true))  // formatOnFail = true
+    spiffs_initialized = true;
+  else
+    SERIAL_ERROR_MSG("SPIFFS mount failed");
+}
+
+#endif // WIFISUPPORT && WEBSUPPORT
+#endif // ARDUINO_ARCH_ESP32

@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2021 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -21,15 +21,6 @@
  */
 #pragma once
 
-#ifndef SD_SS_PIN
-#define SD_SS_PIN   SDSS
-#endif
-#ifndef SD_SCK_PIN
-#define SD_SCK_PIN  18
-#endif
-#ifndef SD_MISO_PIN
-#define SD_MISO_PIN 19
-#endif
-#ifndef SD_MOSI_PIN
-#define SD_MOSI_PIN 23
-#endif
+#include <SPI.h>
+
+using MarlinSPI = SPIClass;

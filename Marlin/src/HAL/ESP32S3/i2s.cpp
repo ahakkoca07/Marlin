@@ -71,10 +71,10 @@ static inline void gpio_matrix_out_check(uint32_t gpio, uint32_t signal_idx, boo
 
 static esp_err_t i2s_reset_fifo(i2s_port_t i2s_num) {
   I2S_ENTER_CRITICAL();
-  I2S[i2s_num]->conf.rx_fifo_reset = 1;
-  I2S[i2s_num]->conf.rx_fifo_reset = 0;
-  I2S[i2s_num]->conf.tx_fifo_reset = 1;
-  I2S[i2s_num]->conf.tx_fifo_reset = 0;
+  I2S[i2s_num]->rx_conf.rx_fifo_reset = 1;
+  I2S[i2s_num]->rx_conf.rx_fifo_reset = 0;
+  I2S[i2s_num]->tx_conf.tx_fifo_reset = 1;
+  I2S[i2s_num]->tx_conf.tx_fifo_reset = 0;
   I2S_EXIT_CRITICAL();
 
   return ESP_OK;
@@ -91,14 +91,14 @@ esp_err_t i2s_start(i2s_port_t i2s_num) {
   I2S[i2s_num]->lc_conf.out_rst = 1;
   I2S[i2s_num]->lc_conf.out_rst = 0;
 
-  I2S[i2s_num]->conf.tx_reset = 1;
-  I2S[i2s_num]->conf.tx_reset = 0;
-  I2S[i2s_num]->conf.rx_reset = 1;
-  I2S[i2s_num]->conf.rx_reset = 0;
+  I2S[i2s_num]->tx_conf.tx_reset = 1;
+  I2S[i2s_num]->tx_conf.tx_reset = 0;
+  I2S[i2s_num]->tx_conf.rx_reset = 1;
+  I2S[i2s_num]->tx_conf.rx_reset = 0;
 
   I2S[i2s_num]->int_clr.val = 0xFFFFFFFF;
   I2S[i2s_num]->out_link.start = 1;
-  I2S[i2s_num]->conf.tx_start = 1;
+  I2S[i2s_num]->tx_conf.tx_start = 1;
   I2S_EXIT_CRITICAL();
 
   return ESP_OK;
@@ -107,7 +107,7 @@ esp_err_t i2s_start(i2s_port_t i2s_num) {
 esp_err_t i2s_stop(i2s_port_t i2s_num) {
   I2S_ENTER_CRITICAL();
   I2S[i2s_num]->out_link.stop = 1;
-  I2S[i2s_num]->conf.tx_start = 0;
+  I2S[i2s_num]->tx_conf.tx_start = 0;
 
   I2S[i2s_num]->int_clr.val = I2S[i2s_num]->int_st.val; //clear pending interrupt
   I2S_EXIT_CRITICAL();

@@ -19,17 +19,29 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#pragma once
+#ifdef ARDUINO_ARCH_ESP32
 
-#ifndef SD_SS_PIN
-#define SD_SS_PIN   SDSS
-#endif
-#ifndef SD_SCK_PIN
-#define SD_SCK_PIN  18
-#endif
-#ifndef SD_MISO_PIN
-#define SD_MISO_PIN 19
-#endif
-#ifndef SD_MOSI_PIN
-#define SD_MOSI_PIN 23
-#endif
+#include "../../inc/MarlinConfigPre.h"
+
+#if BOTH(WIFISUPPORT, WEBSUPPORT)
+
+#include "../../inc/MarlinConfig.h"
+
+#undef DISABLED  // esp32-hal-gpio.h
+#include <SPIFFS.h>
+#include "wifi.h"
+
+AsyncEventSource events("/events"); // event source (Server-Sent events)
+
+void onNotFound(AsyncWebServerRequest *request) {
+  request->send(404);
+}
+
+void web_init() {
+  server.addHandler(&events);       // attach AsyncEventSource
+  server.serveStatic("/", SPIFFS, "/www").setDefaultFile("index.html");
+  server.onNotFound(onNotFound);
+}
+
+#endif // WIFISUPPORT && WEBSUPPORT
+#endif // ARDUINO_ARCH_ESP32

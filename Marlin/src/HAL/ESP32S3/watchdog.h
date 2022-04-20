@@ -21,15 +21,18 @@
  */
 #pragma once
 
-#ifndef SD_SS_PIN
-#define SD_SS_PIN   SDSS
+#ifdef __cplusplus
+  extern "C" {
 #endif
-#ifndef SD_SCK_PIN
-#define SD_SCK_PIN  18
+
+  esp_err_t esp_task_wdt_reset();
+
+#ifdef __cplusplus
+  }
 #endif
-#ifndef SD_MISO_PIN
-#define SD_MISO_PIN 19
-#endif
-#ifndef SD_MOSI_PIN
-#define SD_MOSI_PIN 23
-#endif
+
+// Initialize watchdog with a 4 second interrupt time
+void watchdog_init();
+
+// Reset watchdog.
+inline void HAL_watchdog_refresh() { esp_task_wdt_reset(); }

@@ -21,15 +21,15 @@
  */
 #pragma once
 
-#ifndef SD_SS_PIN
-#define SD_SS_PIN   SDSS
-#endif
-#ifndef SD_SCK_PIN
-#define SD_SCK_PIN  18
-#endif
-#ifndef SD_MISO_PIN
-#define SD_MISO_PIN 19
-#endif
-#ifndef SD_MOSI_PIN
-#define SD_MOSI_PIN 23
-#endif
+#include <stdint.h>
+
+// current value of the outputs provided over i2s
+extern uint32_t i2s_port_data;
+
+int i2s_init();
+
+uint8_t i2s_state(uint8_t pin);
+
+void i2s_write(uint8_t pin, uint8_t val);
+
+void i2s_push_sample();

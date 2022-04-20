@@ -733,6 +733,13 @@
   #include "esp32/pins_MKS_TINYBEE.h"           // ESP32                                  env:mks_tinybee
 #elif MB(ENWI_ESPNP)
   #include "esp32/pins_ENWI_ESPNP.h"            // ESP32                                  env:esp32
+  
+//
+// Espressif ESP32S3
+//
+
+#elif MB(MKS_TINYBEE_V2)
+  #include "esp32s3/pins_MKS_TINYBEE_V2.h"     // ESP32S3                                  env:esp32s3
 
 //
 // Adafruit Grand Central M4 (SAMD51 ARM Cortex-M4)

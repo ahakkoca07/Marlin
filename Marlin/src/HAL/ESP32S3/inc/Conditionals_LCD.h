@@ -21,15 +21,6 @@
  */
 #pragma once
 
-#ifndef SD_SS_PIN
-#define SD_SS_PIN   SDSS
-#endif
-#ifndef SD_SCK_PIN
-#define SD_SCK_PIN  18
-#endif
-#ifndef SD_MISO_PIN
-#define SD_MISO_PIN 19
-#endif
-#ifndef SD_MOSI_PIN
-#define SD_MOSI_PIN 23
+#if HAS_SPI_TFT || HAS_FSMC_TFT
+  #error "Sorry! TFT displays are not available for HAL/ESP32S3."
 #endif
