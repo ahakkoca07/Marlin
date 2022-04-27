@@ -1072,7 +1072,11 @@ static void wifi_gcode_exec(uint8_t *cmd_line) {
             ZERO(tempBuf);
             sprintf_P((char *)tempBuf, PSTR("M27 %d\r\n"), print_rate);
             send_to_wifi((uint8_t *)tempBuf, strlen((char *)tempBuf));
-          }
+          }else {
+                    //better send message even no print is running, same as Marlin
+                    send_to_wifi((uint8_t *)"Not SD printing\r\n", strlen("Not SD printing\r\n"));
+                    SEND_OK_TO_WIFI;
+                }
           break;
 
         case 28:
@@ -1218,13 +1222,27 @@ static void wifi_gcode_exec(uint8_t *cmd_line) {
             wifi_ret_ack();
           }
           break;
-
+ case 114:
+                ZERO(tempBuf);
+                {
+                    //%f seems not working as expected, so lets split float into two ints
+                    //send_to_wifi filter X: so lets add a space to trick it so we are still backward compatible with old firmware, but better remove the spcae and the filter
+                    const xyze_pos_t lpos = current_position.asLogical();
+                    sprintf_P((char *)tempBuf, PSTR(" X:%d.%03d Y:%d.%03d Z:%d.%03d E:%d.%03d\r\n"), (int16_t)lpos.x, fraction(lpos.x,2), (int16_t)lpos.y, fraction(lpos.y,2), (int16_t)lpos.z, fraction(lpos.z,2),  (int16_t)lpos.e, fraction(lpos.e,2));
+                    send_to_wifi((uint8_t *)tempBuf, strlen((char *)tempBuf));
+                    SEND_OK_TO_WIFI;
+                }
+                break;
         case 115:
           ZERO(tempBuf);
           SEND_OK_TO_WIFI;
           send_to_wifi((uint8_t *)"FIRMWARE_NAME:Robin_nano\r\n", strlen("FIRMWARE_NAME:Robin_nano\r\n"));
           break;
-
+case 503:
+                ZERO(tempBuf);
+                send_to_wifi((uint8_t *)"echo:; Sorry not yet available\r\n", strlen("echo:; Sorry not yet available\r\n"));
+                SEND_OK_TO_WIFI;
+                break;
         default:
           strcat_P((char *)cmd_line, PSTR("\n"));
 

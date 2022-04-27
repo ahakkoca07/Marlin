@@ -31,9 +31,9 @@
 #include "env_validate.h"
 
 #if EXTRUDERS > 2 || E_STEPPERS > 2
-#error "MKS ESP Nano only supports two E Steppers. Comment out this line to continue."
+  #error "MKS ESP Nano only supports two E Steppers. Comment out this line to continue."
 #elif HOTENDS > 2
-#error "MKS ESP Nano only supports two hotend / E-stepper. Comment out this line to continue."
+  #error "MKS ESP Nano only supports two hotend / E-stepper. Comment out this line to continue."
 #endif
 
 #define BOARD_INFO_NAME      "MKS TinyBee V2"
@@ -47,7 +47,7 @@
 //
 #define SERVO0_PIN                            47
 
-//#define NEOPIXEL_PIN                          48
+#define NEOPIXEL_PIN                          48
 
 //
 // Limit Switches
@@ -66,9 +66,9 @@
 //
 #undef I2S_STEPPER_STREAM
 #define I2S_STEPPER_STREAM
-#define I2S_WS                                13
-#define I2S_BCK                               12
-#define I2S_DATA                              14
+#define I2S_WS                                19
+#define I2S_BCK                               8
+#define I2S_DATA                              20
 #undef LIN_ADVANCE                                // Currently, I2S stream does not work with linear advance
 
 //
@@ -99,57 +99,57 @@
 #define Z2_ENABLE_PIN                        140
 
 #if HAS_TMC_UART
-//
-// Software serial
-// No Hardware serial for steppers
-//
-#define X_SERIAL_TX_PIN                   14
-#define X_SERIAL_RX_PIN        X_SERIAL_TX_PIN
+  //
+  // Software serial
+  // No Hardware serial for steppers
+  //
+  #define X_SERIAL_TX_PIN                   14
+  #define X_SERIAL_RX_PIN        X_SERIAL_TX_PIN
 
-#define Y_SERIAL_TX_PIN                   21
-#define Y_SERIAL_RX_PIN        Y_SERIAL_TX_PIN
+  #define Y_SERIAL_TX_PIN                   21
+  #define Y_SERIAL_RX_PIN        Y_SERIAL_TX_PIN
 
-#define Z_SERIAL_TX_PIN                   10
-#define Z_SERIAL_RX_PIN        Z_SERIAL_TX_PIN
+  #define Z_SERIAL_TX_PIN                   10
+  #define Z_SERIAL_RX_PIN        Z_SERIAL_TX_PIN
 
-#define E0_SERIAL_TX_PIN                  9
-#define E0_SERIAL_RX_PIN      E0_SERIAL_TX_PIN
+  #define E0_SERIAL_TX_PIN                  9
+  #define E0_SERIAL_RX_PIN      E0_SERIAL_TX_PIN
 
-#define E1_SERIAL_TX_PIN                  46
-#define E1_SERIAL_RX_PIN      E1_SERIAL_TX_PIN
+  #define E1_SERIAL_TX_PIN                  46
+  #define E1_SERIAL_RX_PIN      E1_SERIAL_TX_PIN
 
-#define Z2_SERIAL_TX_PIN                  46
-#define Z2_SERIAL_RX_PIN      Z2_SERIAL_TX_PIN
+  #define Z2_SERIAL_TX_PIN                  46
+  #define Z2_SERIAL_RX_PIN      Z2_SERIAL_TX_PIN
 
-// Reduce baud rate to improve software serial reliability
-#define TMC_BAUD_RATE                    19200
+  // Reduce baud rate to improve software serial reliability
+  #define TMC_BAUD_RATE                    19200
 #endif
 //
 // Temperature Sensors
 //
-#define TEMP_0_PIN                            36  // Analog Input
-#define TEMP_1_PIN                            34  // Analog Input, you need set R6=0Ω and R7=NC
-#define TEMP_BED_PIN                          39  // Analog Input
+#define TEMP_0_PIN                            4  // Analog Input
+#define TEMP_1_PIN                            5  // Analog Input, you need set R6=0Ω and R7=NC
+#define TEMP_BED_PIN                          6  // Analog Input
 
 //
 // Heaters / Fans
 //
-#define HEATER_0_PIN                         4
+#define HEATER_0_PIN                         145
 #ifndef MKS_TEST
-#define HEATER_1_PIN                         5
+#define HEATER_1_PIN                         146
 #define FAN_PIN                              147
 #define FAN1_PIN                             148
 #endif
-#define HEATER_BED_PIN                       6
+#define HEATER_BED_PIN                       144
 
 //#define CONTROLLER_FAN_PIN                 148
 //#define E0_AUTO_FAN_PIN                    148  // need to update Configuration_adv.h @section extruder
 //#define E1_AUTO_FAN_PIN                    149  // need to update Configuration_adv.h @section extruder
 #ifdef MKS_TEST
-#define HEATER_1_PIN_T                         5
+#define HEATER_1_PIN_T                         146
 #define FAN_PIN_T                              147
 #define FAN1_PIN_T                             148
-#define HEATER_BED_PIN_T                       6
+#define HEATER_BED_PIN_T                       144
 #endif
 
 
@@ -194,55 +194,55 @@
 
 #if HAS_WIRED_LCD
 
-#define BEEPER_PIN                          149
-#define BTN_ENC                             11
-#define LCD_PINS_ENABLE                     41
-#define LCD_PINS_RS                         40
-#define BTN_EN1                             12
-#define BTN_EN2                             21
-#define LCD_BACKLIGHT_PIN                   -1
+  #define BEEPER_PIN                          149
+  #define BTN_ENC                             11
+  #define LCD_PINS_ENABLE                     41
+  #define LCD_PINS_RS                         40
+  #define BTN_EN1                             12
+  #define BTN_EN2                             21
+  #define LCD_BACKLIGHT_PIN                   -1
 
-// MKS MINI12864 and MKS LCD12864B; If using MKS LCD12864A (Need to remove RPK2 resistor)
-#if ENABLED(MKS_MINI_12864)
-//#define LCD_BACKLIGHT_PIN             -1
-//#define LCD_RESET_PIN                 -1
-#define DOGLCD_A0                       45
-#define DOGLCD_CS                       42
-//#define DOGLCD_SCK                    37
-//#define DOGLCD_MOSI                   35
+  // MKS MINI12864 and MKS LCD12864B; If using MKS LCD12864A (Need to remove RPK2 resistor)
+  #if ENABLED(MKS_MINI_12864)
+    //#define LCD_BACKLIGHT_PIN             -1
+    //#define LCD_RESET_PIN                 -1
+    #define DOGLCD_A0                       45
+    #define DOGLCD_CS                       42
+    //#define DOGLCD_SCK                    37
+    //#define DOGLCD_MOSI                   35
 
-// Required for MKS_MINI_12864 with this board
-//#define MKS_LCD12864B
+    // Required for MKS_MINI_12864 with this board
+    //#define MKS_LCD12864B
 
-#elif ENABLED(MKS_MINI_12864_V3)
-#define DOGLCD_CS                       EXP1_08_PIN
-#define DOGLCD_A0                       EXP1_07_PIN
-#define LCD_PINS_DC                     DOGLCD_A0
-#define LCD_BACKLIGHT_PIN               -1
-#define LCD_RESET_PIN                   EXP1_06_PIN
-#define NEOPIXEL_PIN                    EXP1_05_PIN
-#define DOGLCD_MOSI                     EXP2_05_PIN
-#define DOGLCD_SCK                      EXP2_09_PIN
-#if SD_CONNECTION_IS(ONBOARD)
-#define FORCE_SOFT_SPI
-#endif
-#else // !MKS_MINI_12864
+  #elif ENABLED(MKS_MINI_12864_V3)
+    #define DOGLCD_CS                       EXP1_08_PIN
+    #define DOGLCD_A0                       EXP1_07_PIN
+    #define LCD_PINS_DC                     DOGLCD_A0
+    #define LCD_BACKLIGHT_PIN               -1
+    #define LCD_RESET_PIN                   EXP1_06_PIN
+    #define NEOPIXEL_PIN                    EXP1_05_PIN
+    #define DOGLCD_MOSI                     EXP2_05_PIN
+    #define DOGLCD_SCK                      EXP2_09_PIN
+    #if SD_CONNECTION_IS(ONBOARD)
+      #define FORCE_SOFT_SPI
+    #endif
+  #else // !MKS_MINI_12864
 
-#define LCD_PINS_D4                     0
-#if ENABLED(REPRAP_DISCOUNT_SMART_CONTROLLER)
-#define LCD_PINS_D5                   42
-#define LCD_PINS_D6                   45
-#define LCD_PINS_D7                   1
-#endif
+    #define LCD_PINS_D4                     0
+    #if ENABLED(REPRAP_DISCOUNT_SMART_CONTROLLER)
+      #define LCD_PINS_D5                   42
+      #define LCD_PINS_D6                   45
+      #define LCD_PINS_D7                   1
+    #endif
 
-#define ST7920_DELAY_1         DELAY_NS(96)
-#define ST7920_DELAY_2         DELAY_NS(48)
-#define ST7920_DELAY_3         DELAY_NS(600)
+    #define ST7920_DELAY_1         DELAY_NS(96)
+    #define ST7920_DELAY_2         DELAY_NS(48)
+    #define ST7920_DELAY_3         DELAY_NS(600)
+        
+    // #define BOARD_ST7920_DELAY_1    DELAY_NS(96)
+    // #define BOARD_ST7920_DELAY_2    DELAY_NS(48)
+    // #define BOARD_ST7920_DELAY_3    DELAY_NS(600)
 
-// #define BOARD_ST7920_DELAY_1    DELAY_NS(96)
-// #define BOARD_ST7920_DELAY_2    DELAY_NS(48)
-// #define BOARD_ST7920_DELAY_3    DELAY_NS(600)
-
-#endif // !MKS_MINI_12864
+  #endif // !MKS_MINI_12864
 
 #endif // HAS_WIRED_LCD
