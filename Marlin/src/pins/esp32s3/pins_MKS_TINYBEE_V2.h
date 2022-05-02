@@ -47,7 +47,7 @@
 //
 #define SERVO0_PIN                            47
 
-#define NEOPIXEL_PIN                          48
+//#define NEOPIXEL_PIN                          48
 
 //
 // Limit Switches
@@ -220,7 +220,9 @@
 #define LCD_PINS_DC                     DOGLCD_A0
 #define LCD_BACKLIGHT_PIN               -1
 #define LCD_RESET_PIN                   EXP1_06_PIN
-#define NEOPIXEL_PIN                    EXP1_05_PIN
+#ifndef NEOPIXEL_PIN
+#define NEOPIXEL_PIN                    EXP1_05_PIN //48?
+#endif // NEOPIXEL_PIN
 #define DOGLCD_MOSI                     EXP2_05_PIN
 #define DOGLCD_SCK                      EXP2_09_PIN
 #if SD_CONNECTION_IS(ONBOARD)
@@ -244,5 +246,7 @@
 // #define BOARD_ST7920_DELAY_3    DELAY_NS(600)
 
 #endif // !MKS_MINI_12864
+
+#define HAL_SENSITIVE_PINS
 
 #endif // HAS_WIRED_LCD

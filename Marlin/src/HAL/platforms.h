@@ -43,7 +43,11 @@
   #endif
   #define HAL_PATH(PATH, NAME) XSTR(PATH/STM32/NAME)
 #elif defined(ARDUINO_ARCH_ESP32)
-  #define HAL_PATH(PATH, NAME) XSTR(PATH/ESP32/NAME)
+  #if defined(CONFIG_IDF_TARGET_ESP32S3)
+   #define HAL_PATH(PATH, NAME) XSTR(PATH/ESP32S3/NAME)
+  #else
+   #define HAL_PATH(PATH, NAME) XSTR(PATH/ESP32/NAME)
+  #endif
 #elif defined(__PLAT_LINUX__)
   #define HAL_PATH(PATH, NAME) XSTR(PATH/LINUX/NAME)
 #elif defined(__PLAT_NATIVE_SIM__)

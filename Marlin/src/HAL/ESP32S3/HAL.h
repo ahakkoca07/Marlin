@@ -61,6 +61,9 @@ extern DefaultSerial1 MSerial0;
 #endif
 #endif
 
+#define HAL_SENSITIVE_PINS
+#define RUNTIME_ONLY_ANALOG_TO_DIGITAL
+
 #undef O_RDONLY
 #undef O_WRONLY
 #undef O_RDWR
