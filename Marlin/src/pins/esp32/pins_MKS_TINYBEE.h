@@ -31,9 +31,9 @@
 #include "env_validate.h"
 
 #if EXTRUDERS > 2 || E_STEPPERS > 2
-#error "MKS ESP Nano only supports two E Steppers. Comment out this line to continue."
+  #error "MKS ESP Nano only supports two E Steppers. Comment out this line to continue."
 #elif HOTENDS > 2
-#error "MKS ESP Nano only supports two hotend / E-stepper. Comment out this line to continue."
+  #error "MKS ESP Nano only supports two hotend / E-stepper. Comment out this line to continue."
 #endif
 
 #define BOARD_INFO_NAME      "MKS TinyBee"
@@ -58,12 +58,12 @@
 //
 #define I2S_STEPPER_STREAM
 #if ENABLED(I2S_STEPPER_STREAM)
-#define I2S_WS                              26
-#define I2S_BCK                             25
-#define I2S_DATA                            27
-#if ENABLED(LIN_ADVANCE)
-#error "I2S stream is currently incompatible with LIN_ADVANCE."
-#endif
+  #define I2S_WS                              26
+  #define I2S_BCK                             25
+  #define I2S_DATA                            27
+  #if ENABLED(LIN_ADVANCE)
+    #error "I2S stream is currently incompatible with LIN_ADVANCE."
+  #endif
 #endif
 
 //
@@ -159,54 +159,54 @@
 
 #if HAS_WIRED_LCD
 
-#define BEEPER_PIN                         149
-#define BTN_ENC                             13
-#define LCD_PINS_ENABLE                     21
-#define LCD_PINS_RS                          4
-#define BTN_EN1                             14
-#define BTN_EN2                             12
-#define LCD_BACKLIGHT_PIN                   -1
+  #define BEEPER_PIN                         149
+  #define BTN_ENC                             13
+  #define LCD_PINS_ENABLE                     21
+  #define LCD_PINS_RS                          4
+  #define BTN_EN1                             14
+  #define BTN_EN2                             12
+  #define LCD_BACKLIGHT_PIN                   -1
 
-// MKS MINI12864 and MKS LCD12864B; If using MKS LCD12864A (Need to remove RPK2 resistor)
-#if ENABLED(MKS_MINI_12864)
+  // MKS MINI12864 and MKS LCD12864B; If using MKS LCD12864A (Need to remove RPK2 resistor)
+  #if ENABLED(MKS_MINI_12864)
 
-//#define LCD_BACKLIGHT_PIN               -1
-//#define LCD_RESET_PIN                   -1
-#define DOGLCD_A0                         15
-#define DOGLCD_CS                         16
-//#define DOGLCD_SCK                      19
-//#define DOGLCD_MOSI                     23
+    //#define LCD_BACKLIGHT_PIN               -1
+    //#define LCD_RESET_PIN                   -1
+    #define DOGLCD_A0                         15
+    #define DOGLCD_CS                         16
+    //#define DOGLCD_SCK                      19
+    //#define DOGLCD_MOSI                     23
 
-// Required for MKS_MINI_12864 with this board
-//#define MKS_LCD12864B
+    // Required for MKS_MINI_12864 with this board
+    //#define MKS_LCD12864B
 
-#elif ENABLED(MKS_MINI_12864_V3)
+  #elif ENABLED(MKS_MINI_12864_V3)
 
-#define LCD_PINS_DC              EXP1_07_PIN
-#define DOGLCD_CS                EXP1_08_PIN
-#define DOGLCD_A0                LCD_PINS_DC
-#define LCD_BACKLIGHT_PIN                 -1
-#define LCD_RESET_PIN            EXP1_06_PIN
-#define NEOPIXEL_PIN             EXP1_05_PIN
-#define DOGLCD_MOSI              EXP2_05_PIN
-#define DOGLCD_SCK               EXP2_09_PIN
-#if SD_CONNECTION_IS(ONBOARD)
-#define FORCE_SOFT_SPI
-#endif
+    #define LCD_PINS_DC              EXP1_07_PIN
+    #define DOGLCD_CS                EXP1_08_PIN
+    #define DOGLCD_A0                LCD_PINS_DC
+    #define LCD_BACKLIGHT_PIN                 -1
+    #define LCD_RESET_PIN            EXP1_06_PIN
+    #define NEOPIXEL_PIN             EXP1_05_PIN
+    #define DOGLCD_MOSI              EXP2_05_PIN
+    #define DOGLCD_SCK               EXP2_09_PIN
+    #if SD_CONNECTION_IS(ONBOARD)
+      #define FORCE_SOFT_SPI
+    #endif
 
-#else // !MKS_MINI_12864
+  #else // !MKS_MINI_12864
 
-#define LCD_PINS_D4                        0
-#if ENABLED(REPRAP_DISCOUNT_SMART_CONTROLLER)
-#define LCD_PINS_D5                     16
-#define LCD_PINS_D6                     15
-#define LCD_PINS_D7                     17
-#endif
+    #define LCD_PINS_D4                        0
+    #if ENABLED(REPRAP_DISCOUNT_SMART_CONTROLLER)
+      #define LCD_PINS_D5                     16
+      #define LCD_PINS_D6                     15
+      #define LCD_PINS_D7                     17
+    #endif
 
-#define BOARD_ST7920_DELAY_1              96
-#define BOARD_ST7920_DELAY_2              48
-#define BOARD_ST7920_DELAY_3             600
+    #define BOARD_ST7920_DELAY_1              96
+    #define BOARD_ST7920_DELAY_2              48
+    #define BOARD_ST7920_DELAY_3             600
 
-#endif // !MKS_MINI_12864
+  #endif // !MKS_MINI_12864
 
 #endif // HAS_WIRED_LCD

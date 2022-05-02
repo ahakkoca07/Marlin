@@ -1439,7 +1439,7 @@
  *
  * :['SPI_HALF_SPEED', 'SPI_QUARTER_SPEED', 'SPI_EIGHTH_SPEED']
  */
-//#define SD_SPI_SPEED SPI_HALF_SPEED
+//#define SD_SPI_SPEED SPI_QUARTER_SPEED
 
 // The standard SD detect circuit reads LOW when media is inserted and HIGH when empty.
 // Enable this option and set to HIGH if your SD cards are incorrectly detected.
@@ -1563,7 +1563,7 @@
 
 //#define SD_REPRINT_LAST_SELECTED_FILE // On print completion open the LCD Menu and select the same file
 
-#define AUTO_REPORT_SD_STATUS         // Auto-report media status with 'M27 S<seconds>'
+//#define AUTO_REPORT_SD_STATUS         // Auto-report media status with 'M27 S<seconds>'
 
 /**
  * Support for USB thumb drives using an Arduino USB Host Shield or
@@ -1669,7 +1669,7 @@
  * By default an onboard SD card reader may be shared as a USB mass-
  * storage device. This option hides the SD card from the host PC.
  */
-//#define NO_SD_HOST_DRIVE   // Disable SD Card access over USB (for security).
+#define NO_SD_HOST_DRIVE   // Disable SD Card access over USB (for security).
 
 /**
  * Additional options for Graphical Displays
@@ -2315,7 +2315,7 @@
 // For debug-echo: 128 bytes for the optimal speed.
 // Other output doesn't need to be that speedy.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256]
-#define TX_BUFFER_SIZE 256
+#define TX_BUFFER_SIZE 128
 
 // Host Receive Buffer Size
 // Without XON/XOFF flow control (see SERIAL_XON_XOFF below) 32 bytes should be enough.
@@ -3882,7 +3882,7 @@
 /**
  * Auto-report position with M154 S<seconds>
  */
-#define AUTO_REPORT_POSITION
+//#define AUTO_REPORT_POSITION
 
 /**
  * Include capabilities in M115 output

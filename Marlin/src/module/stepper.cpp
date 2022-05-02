@@ -3058,7 +3058,7 @@ void Stepper::report_positions() {
 
   #define _ENABLE_AXIS(A) enable_axis(_AXIS(A))
   #define _READ_DIR(AXIS) AXIS ##_DIR_READ()
-  #define _INVERT_DIR(AXIS) INVERT_## AXIS ##_DIR
+  #define _INVERT_DIR(AXIS) ENABLED(INVERT_## AXIS ##_DIR)
   #define _APPLY_DIR(AXIS, INVERT) AXIS ##_APPLY_DIR(INVERT, true)
 
   #if MINIMUM_STEPPER_PULSE
@@ -3072,7 +3072,12 @@ void Stepper::report_positions() {
   #else
     #define CYCLES_EATEN_BABYSTEP 0
   #endif
-  #define EXTRA_CYCLES_BABYSTEP (STEP_PULSE_CYCLES - (CYCLES_EATEN_BABYSTEP))
+
+  #if CYCLES_EATEN_BABYSTEP < STEP_PULSE_CYCLES
+    #define EXTRA_CYCLES_BABYSTEP (STEP_PULSE_CYCLES - (CYCLES_EATEN_BABYSTEP))
+  #else
+    #define EXTRA_CYCLES_BABYSTEP 0
+  #endif
 
   #if EXTRA_CYCLES_BABYSTEP > 20
     #define _SAVE_START() const hal_timer_t pulse_start = HAL_timer_get_count(MF_TIMER_PULSE)
@@ -3198,30 +3203,30 @@ void Stepper::report_positions() {
             U_DIR_READ(), V_DIR_READ(), W_DIR_READ()
           );
 
-          X_DIR_WRITE(INVERT_X_DIR ^ z_direction);
+          X_DIR_WRITE(ENABLED(INVERT_X_DIR) ^ z_direction);
           #ifdef Y_DIR_WRITE
-            Y_DIR_WRITE(INVERT_Y_DIR ^ z_direction);
+            Y_DIR_WRITE(ENABLED(INVERT_Y_DIR) ^ z_direction);
           #endif
           #ifdef Z_DIR_WRITE
-            Z_DIR_WRITE(INVERT_Z_DIR ^ z_direction);
+            Z_DIR_WRITE(ENABLED(INVERT_Z_DIR) ^ z_direction);
           #endif
           #ifdef I_DIR_WRITE
-            I_DIR_WRITE(INVERT_I_DIR ^ z_direction);
+            I_DIR_WRITE(ENABLED(INVERT_I_DIR) ^ z_direction);
           #endif
           #ifdef J_DIR_WRITE
-            J_DIR_WRITE(INVERT_J_DIR ^ z_direction);
+            J_DIR_WRITE(ENABLED(INVERT_J_DIR) ^ z_direction);
           #endif
           #ifdef K_DIR_WRITE
-            K_DIR_WRITE(INVERT_K_DIR ^ z_direction);
+            K_DIR_WRITE(ENABLED(INVERT_K_DIR) ^ z_direction);
           #endif
           #ifdef U_DIR_WRITE
-            U_DIR_WRITE(INVERT_U_DIR ^ z_direction);
+            U_DIR_WRITE(ENABLED(INVERT_U_DIR) ^ z_direction);
           #endif
           #ifdef V_DIR_WRITE
-            V_DIR_WRITE(INVERT_V_DIR ^ z_direction);
+            V_DIR_WRITE(ENABLED(INVERT_V_DIR) ^ z_direction);
           #endif
           #ifdef W_DIR_WRITE
-            W_DIR_WRITE(INVERT_W_DIR ^ z_direction);
+            W_DIR_WRITE(ENABLED(INVERT_W_DIR) ^ z_direction);
           #endif
 
           DIR_WAIT_AFTER();
@@ -3367,7 +3372,7 @@ void Stepper::report_positions() {
     if (!initialized) return;
     LOOP_L_N(i, COUNT(motor_current_setting)) {
       switch (i) {
-        #if ANY_PIN(MOTOR_CURRENT_PWM_XY, MOTOR_CURRENT_PWM_X, MOTOR_CURRENT_PWM_Y)
+        #if ANY_PIN(MOTOR_CURRENT_PWM_XY, MOTOR_CURRENT_PWM_X, MOTOR_CURRENT_PWM_Y, MOTOR_CURRENT_PWM_I, MOTOR_CURRENT_PWM_J, MOTOR_CURRENT_PWM_K, MOTOR_CURRENT_PWM_U, MOTOR_CURRENT_PWM_V, MOTOR_CURRENT_PWM_W)
           case 0:
         #endif
         #if PIN_EXISTS(MOTOR_CURRENT_PWM_Z)
@@ -3414,6 +3419,24 @@ void Stepper::report_positions() {
             #endif
             #if PIN_EXISTS(MOTOR_CURRENT_PWM_XY)
               _WRITE_CURRENT_PWM(XY);
+            #endif
+            #if PIN_EXISTS(MOTOR_CURRENT_PWM_I)
+              _WRITE_CURRENT_PWM(I);
+            #endif
+            #if PIN_EXISTS(MOTOR_CURRENT_PWM_J)
+              _WRITE_CURRENT_PWM(J);
+            #endif
+            #if PIN_EXISTS(MOTOR_CURRENT_PWM_K)
+              _WRITE_CURRENT_PWM(K);
+            #endif
+            #if PIN_EXISTS(MOTOR_CURRENT_PWM_U)
+              _WRITE_CURRENT_PWM(U);
+            #endif
+            #if PIN_EXISTS(MOTOR_CURRENT_PWM_V)
+              _WRITE_CURRENT_PWM(V);
+            #endif
+            #if PIN_EXISTS(MOTOR_CURRENT_PWM_W)
+              _WRITE_CURRENT_PWM(W);
             #endif
             break;
           case 1:
@@ -3463,6 +3486,24 @@ void Stepper::report_positions() {
         #endif
         #if PIN_EXISTS(MOTOR_CURRENT_PWM_XY)
           INIT_CURRENT_PWM(XY);
+        #endif
+        #if PIN_EXISTS(MOTOR_CURRENT_PWM_I)
+          INIT_CURRENT_PWM(I);
+        #endif
+        #if PIN_EXISTS(MOTOR_CURRENT_PWM_J)
+          INIT_CURRENT_PWM(J);
+        #endif
+        #if PIN_EXISTS(MOTOR_CURRENT_PWM_K)
+          INIT_CURRENT_PWM(K);
+        #endif
+        #if PIN_EXISTS(MOTOR_CURRENT_PWM_U)
+          INIT_CURRENT_PWM(U);
+        #endif
+        #if PIN_EXISTS(MOTOR_CURRENT_PWM_V)
+          INIT_CURRENT_PWM(V);
+        #endif
+        #if PIN_EXISTS(MOTOR_CURRENT_PWM_W)
+          INIT_CURRENT_PWM(W);
         #endif
         #if PIN_EXISTS(MOTOR_CURRENT_PWM_Z)
           INIT_CURRENT_PWM(Z);
