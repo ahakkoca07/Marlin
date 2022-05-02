@@ -21,12 +21,6 @@
  */
 #pragma once
 
-/**
- * MRR ESPE pin assignments
- * MRR ESPE is a 3D printer control board based on the ESP32 microcontroller.
- * Supports 5 stepper drivers (using I2S stepper stream), heated bed,
- * single hotend, and LCD controller.
- */
 
 #include "env_validate.h"
 
@@ -45,9 +39,9 @@
 //
 // Servos
 //
-#define SERVO0_PIN                            47
+//#define SERVO0_PIN                            47
 
-//#define NEOPIXEL_PIN                          48
+//#define NEOPIXEL_PIN                          48  //different than LCD_D5 ? => 2 Neopixels : one on LCD one on board ?
 
 //
 // Limit Switches
@@ -152,6 +146,11 @@
 #define HEATER_BED_PIN_T                       144
 #endif
 
+//
+// ADC Reference Voltage
+//
+//#define ADC_REFERENCE_VOLTAGE                2.6  // 2.6V reference VDDA
+
 
 //
 // MicroSD card
@@ -165,11 +164,11 @@
 
 /**
  *                _____                                             _____
- * (BEEPER)IO149 | · · | IO13(BTN_ENC)             (SPI MISO) IO19 | · · | IO18 (SPI SCK)
- *  (LCD_EN)IO21 | · · | IO4(LCD_RS)                (BTN_EN1) IO14 | · · | IO5 (SPI CS)
- *  (LCD_D4)IO0  | · ·   IO16(LCD_D5)               (BTN_EN2) IO12 | · ·   23 (SPI MOSI)
- *  (LCD_D6)IO15 | · · | IO17(LCD_D7)               (SPI_DET) IO34 | · · | RESET
- *           GND | · · | 5V                                    GND | · · | 3.3V
+ * (BEEPER)IO149 |10 9 | IO11(BTN_ENC)             (SPI MISO) IO37 |10 9 | IO36 (SPI SCK)
+ *  (LCD_EN)IO41 | 8 7 | IO40(LCD_RS)               (BTN_EN1) IO12 | 8 7 | IO38 (SPI CS)
+ *  (LCD_D4)IO0  | 6 5   IO42(LCD_D5)               (BTN_EN2) IO13 | 6 5   IO35 (SPI MOSI)
+ *  (LCD_D6)IO45 | 4 3 | IO01(LCD_D7)               (SPI_DET) IO39 | 4 3 | RESET
+ *           GND | 2 1 | 5V                                    GND | 2 1 | 3.3V
  *                ￣￣￣                                            ￣￣￣
  *                EXP1                                               EXP2
  */
@@ -199,7 +198,7 @@
 #define LCD_PINS_ENABLE                     41
 #define LCD_PINS_RS                         40
 #define BTN_EN1                             12
-#define BTN_EN2                             21
+#define BTN_EN2                             13
 #define LCD_BACKLIGHT_PIN                   -1
 
 // MKS MINI12864 and MKS LCD12864B; If using MKS LCD12864A (Need to remove RPK2 resistor)
@@ -221,7 +220,7 @@
 #define LCD_BACKLIGHT_PIN               -1
 #define LCD_RESET_PIN                   EXP1_06_PIN
 #ifndef NEOPIXEL_PIN
-#define NEOPIXEL_PIN                    EXP1_05_PIN //48?
+#define NEOPIXEL_PIN                    EXP1_05_PIN // NeoPixel on EXP1_05_PIN
 #endif // NEOPIXEL_PIN
 #define DOGLCD_MOSI                     EXP2_05_PIN
 #define DOGLCD_SCK                      EXP2_09_PIN
@@ -247,6 +246,6 @@
 
 #endif // !MKS_MINI_12864
 
-#define HAL_SENSITIVE_PINS
-
 #endif // HAS_WIRED_LCD
+
+

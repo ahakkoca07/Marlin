@@ -2595,7 +2595,7 @@ bool Stepper::is_block_busy(const block_t * const block) {
 }
 
 void Stepper::init() {
-
+  return;
   #if MB(ALLIGATOR)
     const float motor_current[] = MOTOR_CURRENT;
     unsigned int digipot_motor = 0;
