@@ -41,15 +41,15 @@
 #define _PULLUP(IO, v)          pinMode(IO, v ? INPUT_PULLUP : INPUT)
 
 #if ENABLED(USE_ESP32_EXIO)
-  // Read a pin wrapper
-  #define READ(IO)                digitalRead(IO)
-  // Write to a pin wrapper
-  #define WRITE(IO, v)            (IO >= 100 ? Write_EXIO(IO, v) : digitalWrite(IO, v))
+// Read a pin wrapper
+#define READ(IO)                digitalRead(IO)
+// Write to a pin wrapper
+#define WRITE(IO, v)            (IO >= 100 ? Write_EXIO(IO, v) : digitalWrite(IO, v))
 #else
-  // Read a pin wrapper
-  #define READ(IO)                (IS_I2S_EXPANDER_PIN(IO) ? i2s_state(I2S_EXPANDER_PIN_INDEX(IO)) : digitalRead(IO))
-  // Write to a pin wrapper
-  #define WRITE(IO, v)            (IS_I2S_EXPANDER_PIN(IO) ? i2s_write(I2S_EXPANDER_PIN_INDEX(IO), v) : digitalWrite(IO, v))
+// Read a pin wrapper
+#define READ(IO)                (IS_I2S_EXPANDER_PIN(IO) ? i2s_state(I2S_EXPANDER_PIN_INDEX(IO)) : digitalRead(IO))
+// Write to a pin wrapper
+#define WRITE(IO, v)            (IS_I2S_EXPANDER_PIN(IO) ? i2s_write(I2S_EXPANDER_PIN_INDEX(IO), v) : digitalWrite(IO, v))
 #endif
 
 // Set pin as input wrapper (0x80 | (v << 5) | (IO - 100))
@@ -75,7 +75,7 @@
 #define extDigitalWrite(IO,V)   digitalWrite(IO,V)
 
 // PWM outputs
-#define PWM_PIN(P)              (P < 34 || P > 127) // NOTE Pins >= 34 are input only on ESP32, so they can't be used for output.
+#define PWM_PIN(P)              (digitalPinHasPWM(p) || P > 127) // NOTE Pins >= 34 are input only on ESP32, so they can't be used for output.
 
 // Toggle pin value
 #define TOGGLE(IO)              WRITE(IO, !READ(IO))
@@ -85,8 +85,8 @@
 //
 
 // UART
-#define RXD        3
-#define TXD        1
+#define RXD        44
+#define TXD        43
 
 // TWI (I2C)
 #define SCL        5
