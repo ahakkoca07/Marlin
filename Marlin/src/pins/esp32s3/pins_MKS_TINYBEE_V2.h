@@ -84,13 +84,14 @@
 #define E0_DIR_PIN                           139
 #define E0_ENABLE_PIN                        137
 
-#define E1_STEP_PIN                          141
-#define E1_DIR_PIN                           142
-#define E1_ENABLE_PIN                        140
+//#define E1_STEP_PIN                          141
+//#define E1_DIR_PIN                           142
+//#define E1_ENABLE_PIN                        140
 
-#define Z2_STEP_PIN                          141
-#define Z2_DIR_PIN                           142
-#define Z2_ENABLE_PIN                        140
+//#define Z2_STEP_PIN                          141
+//#define Z2_DIR_PIN                           142
+//#define Z2_ENABLE_PIN                        140
+#undef X2_DIR_PIN
 
 #if HAS_TMC_UART
 //
@@ -109,11 +110,11 @@
 #define E0_SERIAL_TX_PIN                  9
 #define E0_SERIAL_RX_PIN      E0_SERIAL_TX_PIN
 
-#define E1_SERIAL_TX_PIN                  46
-#define E1_SERIAL_RX_PIN      E1_SERIAL_TX_PIN
+//#define E1_SERIAL_TX_PIN                  46
+//#define E1_SERIAL_RX_PIN      E1_SERIAL_TX_PIN
 
-#define Z2_SERIAL_TX_PIN                  46
-#define Z2_SERIAL_RX_PIN      Z2_SERIAL_TX_PIN
+//#define Z2_SERIAL_TX_PIN                  46
+//#define Z2_SERIAL_RX_PIN      Z2_SERIAL_TX_PIN
 
 // Reduce baud rate to improve software serial reliability
 #define TMC_BAUD_RATE                    19200
