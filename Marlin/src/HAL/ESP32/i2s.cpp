@@ -29,7 +29,7 @@
 
 #include "../shared/Marduino.h"
 #include <driver/periph_ctrl.h>
-#include <soc/lldesc.h>
+#include <rom/lldesc.h>
 #include <soc/i2s_struct.h>
 #include <freertos/queue.h>
 #include "../../module/stepper.h"
