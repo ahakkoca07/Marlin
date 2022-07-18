@@ -60,14 +60,15 @@ static SPISettings spiConfig;
 #endif
 
 #ifndef LCD_SPI_SPEED
-  #ifdef SD_SPI_SPEED
-    #define LCD_SPI_SPEED SD_SPI_SPEED    // Assume SPI speed shared with SD
-  #else
-    #define LCD_SPI_SPEED SPI_FULL_SPEED  // Use full speed if SD speed is not supplied
-  #endif
+#ifdef SD_SPI_SPEED
+#define LCD_SPI_SPEED SD_SPI_SPEED    // Assume SPI speed shared with SD
+#else
+#define LCD_SPI_SPEED SPI_FULL_SPEED  // Use full speed if SD speed is not supplied
+#endif
 #endif
 
-uint8_t u8g_eps_hw_spi_fn(u8g_t *u8g, uint8_t msg, uint8_t arg_val, void *arg_ptr) {
+uint8_t u8g_eps_hw_spi_fn(u8g_t *u8g, uint8_t msg, uint8_t arg_val, void *arg_ptr)
+{
 
 #if ENABLED(MKS_MINI_12864_V3) && ((MOTHERBOARD == BOARD_MKS_TINYBEE) || (MOTHERBOARD == BOARD_MKS_TINYBEE_V2))
 #if ENABLED(SDSUPPORT)
@@ -81,54 +82,59 @@ uint8_t u8g_eps_hw_spi_fn(u8g_t *u8g, uint8_t msg, uint8_t arg_val, void *arg_pt
 #endif //ESP3D_WIFISUPPORT
 #endif //SDSUPPORT
 #endif //ENABLED(MKS_MINI_12864_V3)  && ((MOTHERBOARD == BOARD_MKS_TINYBEE) || (MOTHERBOARD == BOARD_MKS_TINYBEE_V2))
-  static uint8_t msgInitCount = 2; // Ignore all messages until 2nd U8G_COM_MSG_INIT
-  if (msgInitCount) {
-    if (msg == U8G_COM_MSG_INIT) msgInitCount--;
-    if (msgInitCount) return -1;
-  }
+    static uint8_t msgInitCount = 2; // Ignore all messages until 2nd U8G_COM_MSG_INIT
+    if (msgInitCount) {
+        if (msg == U8G_COM_MSG_INIT) {
+            msgInitCount--;
+        }
+        if (msgInitCount) {
+            return -1;
+        }
+    }
 
-  switch (msg) {
-    case U8G_COM_MSG_STOP: break;
+    switch (msg) {
+    case U8G_COM_MSG_STOP:
+        break;
 
     case U8G_COM_MSG_INIT:
-      //FixMe: is still needed ?
-      pinMode(MDOGLCD_CS, OUTPUT);
-      pinMode(MDOGLCD_A0, OUTPUT);
-      pinMode(MLCD_RESET_PIN, OUTPUT);
+        //FixMe: is still needed ?
+        _SET_OUTPUT(MDOGLCD_CS);
+        _SET_OUTPUT(MDOGLCD_A0);
+        _SET_OUTPUT(MLCD_RESET_PIN);
 
-      OUT_WRITE(MDOGLCD_CS, HIGH);
-      OUT_WRITE(MDOGLCD_A0, HIGH);
-      OUT_WRITE(MLCD_RESET_PIN, HIGH);
-      u8g_Delay(5);
-      spiBegin();
-      spiInit(LCD_SPI_SPEED);
-      break;
+        OUT_WRITE(MDOGLCD_CS, HIGH);
+        OUT_WRITE(MDOGLCD_A0, HIGH);
+        OUT_WRITE(MLCD_RESET_PIN, HIGH);
+        u8g_Delay(5);
+        spiBegin();
+        spiInit(LCD_SPI_SPEED);
+        break;
 
     case U8G_COM_MSG_ADDRESS:           /* define cmd (arg_val = 0) or data mode (arg_val = 1) */
-      WRITE(MDOGLCD_A0, arg_val ? HIGH : LOW);
-      break;
+        WRITE(MDOGLCD_A0, arg_val ? HIGH : LOW);
+        break;
 
     case U8G_COM_MSG_CHIP_SELECT:       /* arg_val == 0 means HIGH level of U8G_PI_CS */
-      WRITE(MDOGLCD_CS, arg_val ? LOW : HIGH);
-      break;
+        WRITE(MDOGLCD_CS, arg_val ? LOW : HIGH);
+        break;
 
     case U8G_COM_MSG_RESET:
-      WRITE(MLCD_RESET_PIN, arg_val);
-      break;
+        WRITE(MLCD_RESET_PIN, arg_val);
+        break;
 
     case U8G_COM_MSG_WRITE_BYTE:
-      spiSend((uint8_t)arg_val);
-      break;
+        spiSend((uint8_t)arg_val);
+        break;
 
     case U8G_COM_MSG_WRITE_SEQ:
-      uint8_t *ptr = (uint8_t*) arg_ptr;
-      while (arg_val > 0) {
-        spiSend(*ptr++);
-        arg_val--;
-      }
-      break;
-  }
-  return 1;
+        uint8_t *ptr = (uint8_t*) arg_ptr;
+        while (arg_val > 0) {
+            spiSend(*ptr++);
+            arg_val--;
+        }
+        break;
+    }
+    return 1;
 }
 
 #endif // EITHER(MKS_MINI_12864, FYSETC_MINI_12864_2_1)

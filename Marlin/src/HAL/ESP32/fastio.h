@@ -32,24 +32,24 @@
 #define I2S_EXPANDER_PIN_INDEX(IO) (IO & 0x7F)
 
 // Set pin as input
-#define _SET_INPUT(IO)          pinMode(IO, INPUT)
+#define _SET_INPUT(IO)          (IO < 100 ?pinMode(IO, INPUT):void())
 
 // Set pin as output
-#define _SET_OUTPUT(IO)         pinMode(IO, OUTPUT)
+#define _SET_OUTPUT(IO)          (IO < 100 ?pinMode(IO, OUTPUT):void())
 
 // Set pin as input with pullup mode
-#define _PULLUP(IO, v)          pinMode(IO, v ? INPUT_PULLUP : INPUT)
+#define _PULLUP(IO, v)          (IO < 100 ?pinMode(IO, v ? INPUT_PULLUP : INPUT):void())
 
 #if ENABLED(USE_ESP32_EXIO)
-  // Read a pin wrapper
-  #define READ(IO)                digitalRead(IO)
-  // Write to a pin wrapper
-  #define WRITE(IO, v)            (IO >= 100 ? Write_EXIO(IO, v) : digitalWrite(IO, v))
+// Read a pin wrapper
+#define READ(IO)                digitalRead(IO)
+// Write to a pin wrapper
+#define WRITE(IO, v)            (IO >= 100 ? Write_EXIO(IO, v) : digitalWrite(IO, v))
 #else
-  // Read a pin wrapper
-  #define READ(IO)                (IS_I2S_EXPANDER_PIN(IO) ? i2s_state(I2S_EXPANDER_PIN_INDEX(IO)) : digitalRead(IO))
-  // Write to a pin wrapper
-  #define WRITE(IO, v)            (IS_I2S_EXPANDER_PIN(IO) ? i2s_write(I2S_EXPANDER_PIN_INDEX(IO), v) : digitalWrite(IO, v))
+// Read a pin wrapper
+#define READ(IO)                (IS_I2S_EXPANDER_PIN(IO) ? i2s_state(I2S_EXPANDER_PIN_INDEX(IO)) : digitalRead(IO))
+// Write to a pin wrapper
+#define WRITE(IO, v)            (IS_I2S_EXPANDER_PIN(IO) ? i2s_write(I2S_EXPANDER_PIN_INDEX(IO), v) : digitalWrite(IO, v))
 #endif
 
 // Set pin as input wrapper (0x80 | (v << 5) | (IO - 100))
