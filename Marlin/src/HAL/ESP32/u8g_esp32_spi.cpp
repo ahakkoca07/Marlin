@@ -33,9 +33,9 @@
 #include "SPI.h"
 #if ENABLED(SDSUPPORT)
 #include "../../sd/cardreader.h"
-#if ENABLED(ESP3D_WIFISUPPORT)
-#include "esp3dlib.h"
-#endif //ESP3D_WIFISUPPORT
+#if ENABLED(CUSTOM_SD_ACCESS)
+extern bool isSdUsed();
+#endif
 #endif //SDSUPPORT
 
 static SPISettings spiConfig;
@@ -55,11 +55,11 @@ uint8_t u8g_eps_hw_spi_fn(u8g_t *u8g, uint8_t msg, uint8_t arg_val, void *arg_pt
     if (card.flag.saving || card.flag.logging) {
         return 0;
     }
-#if ENABLED(ESP3D_WIFISUPPORT)
-    if (esp3dlib.isSdUsed()) {
+#if ENABLED(CUSTOM_SD_ACCESS)
+    if (isSdUsed()) {
         return 0;
     }
-#endif //ESP3D_WIFISUPPORT
+#endif //CUSTOM_SD_ACCESS
 #endif //SDSUPPORT
 #endif //ENABLED(MKS_MINI_12864_V3)  && (MOTHERBOARD == BOARD_MKS_TINYBEE)
   static uint8_t msgInitCount = 2; // Ignore all messages until 2nd U8G_COM_MSG_INIT  
