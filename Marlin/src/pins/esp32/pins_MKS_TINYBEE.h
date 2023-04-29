@@ -53,6 +53,9 @@
 #define Z_STOP_PIN                            22
 //#define FIL_RUNOUT_PIN                      35
 
+//Fix dead loop at boot
+#define OLD_ADAPTIVE_MULTISTEPPING
+
 //
 // Enable I2S stepper stream
 //
