@@ -22,6 +22,7 @@
 #ifdef ARDUINO_ARCH_ESP32
 
 #include "../../inc/MarlinConfig.h"
+#include "./Hal.h"
 
 #include <rom/rtc.h>
 #include <driver/adc.h>
