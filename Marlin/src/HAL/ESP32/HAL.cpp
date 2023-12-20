@@ -149,7 +149,6 @@ void MarlinHAL::init_board() {
   // The following code initializes hardware Serial1 and Serial2 to use user-defined pins
   // if they have been defined.
   #if defined(HARDWARE_SERIAL1_RX) && defined(HARDWARE_SERIAL1_TX)
-    HardwareSerial Serial1(1);
     #ifdef TMC_BAUD_RATE  // use TMC_BAUD_RATE for Serial1 if defined
       Serial1.begin(TMC_BAUD_RATE, SERIAL_8N1, HARDWARE_SERIAL1_RX, HARDWARE_SERIAL1_TX);
     #else  // use default BAUDRATE if TMC_BAUD_RATE not defined

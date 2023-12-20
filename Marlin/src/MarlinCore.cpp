@@ -1236,7 +1236,7 @@ void setup() {
     SETUP_RUN(runout.setup());
   #endif
 
-  #if HAS_TMC220x
+  #if HAS_TMC220x && !defined(SKIP_TMC_SERIAL_BEGIN)
     SETUP_RUN(tmc_serial_begin());
   #endif
 
