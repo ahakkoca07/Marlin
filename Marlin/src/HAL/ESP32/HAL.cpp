@@ -49,6 +49,14 @@
   DefaultSerial1 MSerial0(false, Serial2Socket);
 #endif
 
+#ifdef SERIAL_PORT_3
+  #if SERIAL_PORT_3 == 1
+    DefaultSerial3 MSerial2(false, Serial1);
+  #elif SERIAL_PORT_3 == 2
+    DefaultSerial3 MSerial2(false, Serial2);
+  #endif
+#endif // SERIAL_PORT_3
+
 // ------------------------
 // Externs
 // ------------------------
