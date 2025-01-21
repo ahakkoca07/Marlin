@@ -140,16 +140,9 @@
   //#define E4_HARDWARE_SERIAL Serial1
 
   #define X_SERIAL_TX_PIN                   PE2
-  #define X_SERIAL_RX_PIN        X_SERIAL_TX_PIN
-
   #define Y_SERIAL_TX_PIN                   PE3
-  #define Y_SERIAL_RX_PIN        Y_SERIAL_TX_PIN
-
   #define Z_SERIAL_TX_PIN                   PE4
-  #define Z_SERIAL_RX_PIN        Z_SERIAL_TX_PIN
-
   #define E0_SERIAL_TX_PIN                  PD7
-  #define E0_SERIAL_RX_PIN      E0_SERIAL_TX_PIN
 
   // Reduce baud rate to improve software serial reliability
   #ifndef TMC_BAUD_RATE
@@ -238,8 +231,9 @@
 #define SDSS                         EXP2_04_PIN
 
 //
-// LCDs and Controllers
+// LCD / Controller
 //
+
 #if HAS_WIRED_LCD
   #define BEEPER_PIN                 EXP1_01_PIN
   #define BTN_ENC                    EXP1_02_PIN

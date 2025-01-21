@@ -227,25 +227,19 @@ int MarlinHAL::freeMemory() { return ESP.getFreeHeap(); }
 // ADC
 // ------------------------
 
-//Reference:
-//tools/sdk/esp32/include/driver/include/driver/adc.h
-adc1_channel_t get_channel(int pin)
-{
-    switch (pin) {
-    case 39:
-        return ADC1_CHANNEL_3;
-    case 36:
-        return ADC1_CHANNEL_0;
-    case 35:
-        return ADC1_CHANNEL_7;
-    case 34:
-        return ADC1_CHANNEL_6;
-    case 33:
-        return ADC1_CHANNEL_5;
-    case 32:
-        return ADC1_CHANNEL_4;
-    }
-    return ADC1_CHANNEL_MAX;
+// https://docs.espressif.com/projects/esp-idf/en/release-v4.4/esp32/api-reference/peripherals/adc.html
+adc1_channel_t get_channel(int pin) {
+  switch (pin) {
+    case 39: return ADC1_CHANNEL_3;
+    case 36: return ADC1_CHANNEL_0;
+    case 35: return ADC1_CHANNEL_7;
+    case 34: return ADC1_CHANNEL_6;
+    case 33: return ADC1_CHANNEL_5;
+    case 32: return ADC1_CHANNEL_4;
+    case 37: return ADC1_CHANNEL_1;
+    case 38: return ADC1_CHANNEL_2;
+  }
+  return ADC1_CHANNEL_MAX;
 }
 
 void adc1_set_attenuation(adc1_channel_t chan, adc_atten_t atten) {

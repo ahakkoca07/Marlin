@@ -21,9 +21,7 @@
  */
 #pragma once
 
-#if NOT_TARGET(STM32F4)
-  #error "Oops! Select an STM32F4 board in 'Tools > Board.'"
-#endif
+#include "env_validate.h"
 
 #ifndef BOARD_INFO_NAME
   #define BOARD_INFO_NAME "Mellow Fly E3 V2"
@@ -96,10 +94,8 @@
 //
 // Probe enable
 //
-#if ENABLED(PROBE_ENABLE_DISABLE)
-  #ifndef PROBE_ENABLE_PIN
-    #define PROBE_ENABLE_PIN          SERVO0_PIN
-  #endif
+#if ENABLED(PROBE_ENABLE_DISABLE) && !defined(PROBE_ENABLE_PIN)
+  #define PROBE_ENABLE_PIN            SERVO0_PIN
 #endif
 
 //
@@ -206,19 +202,10 @@
   // Software serial
   //
   #define X_SERIAL_TX_PIN                   PC15
-  #define X_SERIAL_RX_PIN        X_SERIAL_TX_PIN
-
   #define Y_SERIAL_TX_PIN                   PB6
-  #define Y_SERIAL_RX_PIN        Y_SERIAL_TX_PIN
-
   #define Z_SERIAL_TX_PIN                   PD7
-  #define Z_SERIAL_RX_PIN        Z_SERIAL_TX_PIN
-
   #define E0_SERIAL_TX_PIN                  PD4
-  #define E0_SERIAL_RX_PIN      E0_SERIAL_TX_PIN
-
   #define E1_SERIAL_TX_PIN                  PD0
-  #define E1_SERIAL_RX_PIN      E1_SERIAL_TX_PIN
 
   // Reduce baud rate to improve software serial reliability
   #ifndef TMC_BAUD_RATE
@@ -299,7 +286,6 @@
     #define E2_CS_PIN                EXP1_06_PIN
     #if HAS_TMC_UART
       #define E2_SERIAL_TX_PIN       EXP1_06_PIN
-      #define E2_SERIAL_RX_PIN       EXP1_06_PIN
     #endif
   #endif
 
@@ -312,7 +298,6 @@
     #define E3_CS_PIN                EXP1_04_PIN
     #if HAS_TMC_UART
       #define E3_SERIAL_TX_PIN       EXP1_04_PIN
-      #define E3_SERIAL_RX_PIN       EXP1_04_PIN
     #endif
   #else
     #define E3_ENABLE_PIN            EXP2_07_PIN
@@ -327,7 +312,6 @@
     #define E4_CS_PIN                EXP1_02_PIN
     #if HAS_TMC_UART
       #define E4_SERIAL_TX_PIN       EXP1_02_PIN
-      #define E4_SERIAL_RX_PIN       EXP1_02_PIN
     #endif
   #else
     #define E4_ENABLE_PIN            EXP2_07_PIN
@@ -336,8 +320,9 @@
 #endif // BTT_MOTOR_EXPANSION
 
 //
-// LCDs and Controllers
+// LCD / Controller
 //
+
 #if IS_TFTGLCD_PANEL
 
   #if ENABLED(TFTGLCD_PANEL_SPI)
