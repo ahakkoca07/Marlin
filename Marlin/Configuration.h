@@ -60,7 +60,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(none, default config)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(ahakkoca07, Minip3D)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -87,7 +87,7 @@
 
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-#define MOTHERBOARD BOARD_MKS_TINYBEE
+#define MOTHERBOARD BOARD_MINIP3D
 #endif
 
 /**
@@ -119,7 +119,7 @@
  * Currently Ethernet (-2) is only supported on Teensy 4.1 boards.
  * :[-2, -1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#define SERIAL_PORT_2 -1
+//#define SERIAL_PORT_2 -1
 //#define BAUDRATE_2 250000   // :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000] Enable to override BAUDRATE
 
 /**
@@ -134,7 +134,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-//#define CUSTOM_MACHINE_NAME "3D Printer"
+#define CUSTOM_MACHINE_NAME "Minip3D"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -400,14 +400,14 @@
  * Enable and connect the power supply to the PS_ON_PIN.
  * Specify whether the power supply is active HIGH or active LOW.
  */
-//#define PSU_CONTROL
-//#define PSU_NAME "Power Supply"
+#define PSU_CONTROL
+#define PSU_NAME "Power Supply"
 
 #if ENABLED(PSU_CONTROL)
   //#define MKS_PWC                 // Using the MKS PWC add-on
-  //#define PS_OFF_CONFIRM          // Confirm dialog when power off
-  //#define PS_OFF_SOUND            // Beep 1s when power off
-  #define PSU_ACTIVE_STATE LOW      // Set 'LOW' for ATX, 'HIGH' for X-Box
+  #define PS_OFF_CONFIRM          // Confirm dialog when power off
+  #define PS_OFF_SOUND            // Beep 1s when power off
+  #define PSU_ACTIVE_STATE HIGH      // Set 'LOW' for ATX, 'HIGH' for X-Box
 
   //#define PSU_DEFAULT_OFF               // Keep power off until enabled directly with M80
   //#define PSU_POWERUP_DELAY      250    // (ms) Delay for the PSU to warm up to full power
@@ -1313,7 +1313,7 @@
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
-//#define FIX_MOUNTED_PROBE
+#define FIX_MOUNTED_PROBE
 
 /**
  * Use the nozzle as the probe, as with a conductive
@@ -1770,7 +1770,7 @@
  * RAMPS-based boards use SERVO3_PIN for the first runout sensor.
  * For other boards you may need to define FIL_RUNOUT_PIN, FIL_RUNOUT2_PIN, etc.
  */
-//#define FILAMENT_RUNOUT_SENSOR
+#define FILAMENT_RUNOUT_SENSOR
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
   #define FIL_RUNOUT_ENABLED_DEFAULT true // Enable the sensor on startup. Override with M412 followed by M500.
   #define NUM_RUNOUT_SENSORS   1          // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
